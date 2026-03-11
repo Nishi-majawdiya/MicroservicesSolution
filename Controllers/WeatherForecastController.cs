@@ -22,7 +22,7 @@ namespace MicroservicesSolution.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("CI/CD Test Version 1");
+            return Ok("CI/CD Test Version 2");
         }
 
     }
