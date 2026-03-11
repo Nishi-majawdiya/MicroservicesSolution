@@ -9,15 +9,15 @@ jobs:
     runs-on: self-hosted
 
     steps:
+
+    - name: Log start
+      run: echo "CI/CD: Pipeline started..."
+
     - name: Checkout code
-      run: echo "CI/CD: Checking out source code..."
-      
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
 
     - name: Setup .NET
-      run: echo "CI/CD: Installing .NET SDK..."
-
-    - uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
@@ -33,8 +33,8 @@ jobs:
 
     - name: Publish to IIS
       run: |
-        echo "CI/CD: Deploying application to IIS..."
+        echo "CI/CD: Deploying to IIS..."
         dotnet publish -c Release -o "D:\Deploy\MicroservicesSolution"
 
-    - name: Deployment Completed
-      run: echo "CI/CD: Deployment finished successfully!"
+    - name: Deployment finished
+      run: echo "CI/CD: Deployment completed successfully!"
