@@ -17,8 +17,8 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore MicroservicesSolution.sln
+    - name: Restore
+      run: dotnet restore
 
     - name: Build project
       run: dotnet build MicroservicesSolution.sln --configuration Release --no-restore
