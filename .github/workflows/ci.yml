@@ -10,18 +10,31 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      run: echo "CI/CD: Checking out source code..."
+      
+    - uses: actions/checkout@v3
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      run: echo "CI/CD: Installing .NET SDK..."
+
+    - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore
-      run: dotnet restore
+    - name: Restore dependencies
+      run: |
+        echo "CI/CD: Restoring NuGet packages..."
+        dotnet restore
 
     - name: Build project
-      run: dotnet build MicroservicesSolution.sln --configuration Release --no-restore
+      run: |
+        echo "CI/CD: Building project..."
+        dotnet build --configuration Release --no-restore
 
     - name: Publish to IIS
-      run: dotnet publish OrderService/OrderService.csproj -c Release -o "D:\Deploy\MicroservicesSolution"
+      run: |
+        echo "CI/CD: Deploying application to IIS..."
+        dotnet publish -c Release -o "D:\Deploy\MicroservicesSolution"
+
+    - name: Deployment Completed
+      run: echo "CI/CD: Deployment finished successfully!"
