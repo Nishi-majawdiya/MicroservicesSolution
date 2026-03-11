@@ -1,4 +1,4 @@
-name: .NET CI Pipeline
+name: .NET CI/CD Pipeline
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-
     runs-on: self-hosted
 
     steps:
@@ -18,11 +17,11 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore
+      run: dotnet restore MicroservicesSolution.sln
 
-    - name: Build project
-      run: dotnet build --configuration Release --no-restore
+    - name: Build
+      run: dotnet build MicroservicesSolution.sln --configuration Release
 
-    - name: Publish project
-      run: dotnet publish -c Release -o publish
+    - name: Publish to IIS
+      run: dotnet publish MicroservicesSolution.sln -c Release -o "D:\Deploy\MicroservicesSolution"
