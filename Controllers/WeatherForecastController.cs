@@ -22,7 +22,7 @@ namespace MicroservicesSolution.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("CI/CD Test Version 2");
+            return Ok("CI/CD Test Version 2git add .\r\ngit commit -m \"updated CI/CD to self hosted runner\"\r\ngit push origin dev");
         }
 
     }
