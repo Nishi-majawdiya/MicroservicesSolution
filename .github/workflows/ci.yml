@@ -1,36 +1,28 @@
-name: .NET CI/CD Pipeline
+name: .NET Build and Deploy
 
 on:
   push:
-    branches: [ "dev" ]
+    branches:
+      - dev
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-      - name: Log start
-        run: echo CI/CD Pipeline started
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: Restore dependencies
-        run: |
-          echo "CI/CD: Restoring NuGet packages..."
-          dotnet restore
+    - name: Build Project
+      run: dotnet build --configuration Release
 
-      - name: Build project
-        run: |
-          echo "CI/CD: Building project..."
-          dotnet build --no-restore
-
-      - name: Publish project
-        run: |
-          echo "CI/CD: Publishing project..."
-          dotnet publish -c Release -o publish
+    - name: Publish Project
+      run: dotnet publish -c Release -o C:\inetpub\wwwroot\MicroservicesApp
