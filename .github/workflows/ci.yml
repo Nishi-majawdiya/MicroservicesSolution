@@ -17,11 +17,11 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore
-      run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore MicroservicesSolution.sln
 
-    - name: Build
-      run: dotnet build MicroservicesSolution.sln --configuration Release
+    - name: Build project
+      run: dotnet build MicroservicesSolution.sln --configuration Release --no-restore
 
     - name: Publish to IIS
-      run: dotnet publish MicroservicesSolution.sln -c Release -o "D:\Deploy\MicroservicesSolution"
+      run: dotnet publish OrderService/OrderService.csproj -c Release -o "D:\Deploy\MicroservicesSolution"
